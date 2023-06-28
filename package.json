@@ -7,7 +7,9 @@
   "main": "gulpfile.js",
   "type": "module",
   "devDependencies": {
-    "gulp": "^4.0.2"
+    "del": "^7.0.0",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

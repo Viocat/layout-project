@@ -11,17 +11,21 @@ export const path={
 
     //обьект путей к папке с результатом
     build:{
+        html: `${buildFolder}/`,
         files: `${buildFolder}/files/`
     },
 
     //обьект путей к исходным файлам
     src:{
-        files:`${srcFolder}/files/**/*.*`,  //абсолютно все папки и файлы внутри папки src/files
+        html: `${srcFolder}/*.html`, //все файлы HTML в папке pages
+        files:`${srcFolder}/files/**/*.*`  //абсолютно все папки и файлы внутри папки src/files
 
     },
 
     //обьект путей к файлам и папкам за которыми должен следить gulp и при любых изменениях выполнять определённые действия
     watch: {
+        html: `${srcFolder}/**/*.html`,
+        files:`${srcFolder}/files/**/*.*`,  //абсолютно все папки и файлы внутри папки src/files
     },
     clean: buildFolder,
     buildFolder: buildFolder, //папка с результатом
