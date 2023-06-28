@@ -15,8 +15,9 @@ const copyHtml=()=>{
         .pipe(dest('build/pages'))
 }
 
-exports.scssCopy=copyScss; // позволяет вызвать такс copyScss, прописывая прописывая gulp cssCopy и тд
-exports.txtCopy=copyTxt;
-exports.htmlCopy=copyHtml;
-gulp.task('default',copyScss) //функция запускается по дефолту при вызове gulp в консоли
+// exports.scssCopy=copyScss; // позволяет вызвать такс copyScss, прописывая прописывая gulp cssCopy и тд
+// exports.txtCopy=copyTxt;
+// exports.htmlCopy=copyHtml;
+exports.fullCopy=parallel(copyHtml, copyScss, copyTxt)
+gulp.task('default',parallel(copyHtml,copyScss, copyTxt)) //функция запускается по дефолту при вызове gulp в консоли
 
