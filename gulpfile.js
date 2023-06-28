@@ -7,7 +7,6 @@ const copyScss=()=>{
         .pipe(dest('build/styles'))
 }
 
-exports.copyScss=copyScss;
-
-gulp.task('default', copyScss)
+exports.lala=copyScss; // позволяет вызвать такс copyScss, прописывая прописывая gulp lala
+gulp.task('default', copyScss) //функция запускается по дефолту при вызове gulp в консоли
 
