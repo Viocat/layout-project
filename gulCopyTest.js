@@ -14,7 +14,7 @@ const {src, dest } =require('gulp');
 //копируются все фалы с расширением scss из всех папок внутри папки dist
 // за исключением папки project (её исключаем из поиска)
 const copyScss=()=>{
-    return src(['dist/**/*.scss', '!dist/project/**'])
+    return src(['dist/**/*.scss', '!dist/pages/**'])
         .pipeTo(dest('build/styles'))
 }
 
