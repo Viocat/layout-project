@@ -1,12 +1,22 @@
 {
   "dependencies": {
+    "autoprefixer": "^10.4.14",
+    "browser-sync": "^2.29.3",
     "gulp": "^4.0.2",
-    "gulp-cli": "^2.3.0"
+    "gulp-cli": "^2.3.0",
+    "gulp-pug": "^5.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sourcemaps": "^3.0.0"
   },
   "name": "layout-project",
   "version": "1.0.0",
   "main": "gulpfile.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.63.6"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
