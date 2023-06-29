@@ -8,16 +8,16 @@ let autoprefixer = require('gulp-autoprefixer');
 let rename = require('gulp-rename');
 let sourcemaps = require('gulp-sourcemaps');
 const pug = require('gulp-pug');
-const {series} = require("gulp-cli/lib/shared/cli-options");
-const {src, dest} = require("gulp");
+const {src, dest,watch,parallel, series} = require("gulp");
+const browserSync = require('browser-sync').create();
 
 const watchers=()=>{
-    gulp.watch(`./${APP}/scss/**/*.scss`, buildStyles);
-    gulp.watch(`./${APP}/**/*.pug`, buildPug);
-    gulp.watch(`./${APP}/**/*.html`, copyHtml);
+    watch(`./${APP}/scss/**/*.scss`, buildStyles);
+    watch(`./${APP}/**/*.pug`, buildPug);
+    watch(`./${APP}/**/*.html`, copyHtml);
 }
 function buildStyles() {
-    return gulp.src(`./${APP}/scss/pages/*.scss`)
+    return src(`./${APP}/scss/pages/*.scss`)
         .pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: ['node_modules'],
@@ -25,20 +25,18 @@ function buildStyles() {
         .pipe(autoprefixer('last 3 versions'))
         .pipe(
             // Optional if you want to see not minified CSS file
-            gulp.dest(`./build/styles`)
+            dest(`./build/styles`)
         )
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write(`./`))
-        .pipe(gulp.dest(`./build/styles`))
-        .pipe(browserSync.stream());
+        .pipe(dest(`./build/styles`))
 }
 
 const buildPug=()=>{
-        return gulp.src(`./${APP}/**/*.pug`)
+        return src(`./${APP}/**/*.pug`)
             .pipe(pug())
-            .pipe(gulp.dest(`./build/exPug`))
-            .pipe(browserSync.stream());
+            .pipe(dest(`./build/exPug`))
 }
 
 const copyHtml=()=>{
@@ -48,7 +46,7 @@ const copyHtml=()=>{
 
 exports.buildStyles = buildStyles;
 exports.buildPug=buildPug;
-exports.server=browserSyncJob;
+exports.watchers=watchers;
 exports.html=copyHtml;
 
-gulp.task('default',gulp.series(gulp.parallel(buildStyles, buildPug, copyHtml), browserSyncJob))
+gulp.task('default',series(parallel(buildStyles, buildPug, copyHtml), watchers))
