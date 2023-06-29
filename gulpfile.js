@@ -9,6 +9,7 @@ let rename = require('gulp-rename');
 let sourcemaps = require('gulp-sourcemaps');
 const pug = require('gulp-pug');
 const {series} = require("gulp-cli/lib/shared/cli-options");
+const {src, dest} = require("gulp");
 const browserSync = require('browser-sync').create();
 
 const browserSyncJob=()=>{
@@ -17,8 +18,9 @@ const browserSyncJob=()=>{
         notify: false, // Отключаем уведомления
         online: true // Режим работы: true или false
     });
-    gulp.watch(`./${APP}/scss/**/*.scss`, gulp.series(buildStyles));
-    gulp.watch(`./${APP}/**/*.pug`, gulp.series(buildPug));
+    gulp.watch(`./${APP}/scss/**/*.scss`, buildStyles);
+    gulp.watch(`./${APP}/**/*.pug`, buildPug);
+    gulp.watch(`./${APP}/**/*.html`, copyHtml);
 }
 function buildStyles() {
     return gulp.src(`./${APP}/scss/pages/*.scss`)
@@ -44,7 +46,15 @@ const buildPug=()=>{
             .pipe(gulp.dest(`./build/exPug`))
             .pipe(browserSync.stream());
 }
+
+const copyHtml=()=>{
+    return src(`${APP}/**/*.html`)
+        .pipe(dest('build/'))
+}
+
 exports.buildStyles = buildStyles;
 exports.buildPug=buildPug;
 exports.server=browserSyncJob;
-gulp.task('default',gulp.series(gulp.parallel(buildStyles, buildPug), browserSyncJob))
+exports.html=copyHtml;
+
+gulp.task('default',gulp.series(gulp.parallel(buildStyles, buildPug, copyHtml), browserSyncJob))
