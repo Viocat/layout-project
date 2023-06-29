@@ -10,14 +10,8 @@ let sourcemaps = require('gulp-sourcemaps');
 const pug = require('gulp-pug');
 const {series} = require("gulp-cli/lib/shared/cli-options");
 const {src, dest} = require("gulp");
-const browserSync = require('browser-sync').create();
 
-const browserSyncJob=()=>{
-    browserSync.init({ // Инициализация Browsersync
-        server: { baseDir: `build/` }, // Указываем папку сервера
-        notify: false, // Отключаем уведомления
-        online: true // Режим работы: true или false
-    });
+const watchers=()=>{
     gulp.watch(`./${APP}/scss/**/*.scss`, buildStyles);
     gulp.watch(`./${APP}/**/*.pug`, buildPug);
     gulp.watch(`./${APP}/**/*.html`, copyHtml);
